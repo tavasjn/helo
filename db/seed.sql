@@ -1,0 +1,13 @@
+-- create table helo_users(
+--     helo_user_id serial primary key,
+--     helo_user_username varchar(100),
+--     helo_user_password varchar(250)
+-- );
+
+-- create table helo_posts(
+--     helo_posts_id serial primary key,
+--     helo_user_id int references helo_users(helo_user_id),
+--     helo_posts_title varchar(250),
+--     helo_posts_url text,
+--     helo_posts_description text
+-- );
