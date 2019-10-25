@@ -12,12 +12,12 @@ module.exports = {
         // Next is if statement to establish connection to user // 
 
         if (!existingUser) {
-            return res.status(401).send('UserName does not exist')
+            return res.status(409).send('UserName does not exist')
         }
-        const authenticated = bcrypt.compareSync(password, existingUser.helo_user_password);
+        const authenticated = bcrypt.compareSync(password, existingUser.password);
 
         if(authenticated){
-            delete existingUser.helo_user_password;
+            delete existingUser.password;
             req.session.user = existingUser;
             return res.status(202).send(req.session.user);
         } else {
@@ -42,9 +42,10 @@ module.exports = {
         const hash = bcrypt.hashSync(password, salt);
 
         let newUser = await db.register({
-            email,
+            username,
             password: hash
         });
         newUser = newUser[0];
     },
+
 }

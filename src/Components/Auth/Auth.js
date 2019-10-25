@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateUser } from '../../ducks/reducer';
+import HeloLogo from '../../helo_logo.png'
 
 
 
@@ -21,17 +22,6 @@ class Auth extends Component {
 
     }
 
-    handleLogin = () => {
-        axios.post('/auth/login', { username: this.state.username, password: this.state.password }).then(res => {
-            this.props.updateUser(res.data)
-            this.props.history.push('/dashboard')
-            this.setState({
-                username: '',
-                password: ''
-            })
-        })
-            .catch(err => console.log(err))
-    }
 
     handleInput = (e) => {
         this.setState({
@@ -39,8 +29,9 @@ class Auth extends Component {
         })
     }
 
-    handleRegister = () => {
-        axios.post('/auth/register', { username: this.state.username, password: this.state.password }).then(res => {
+    handleLogin = () => {
+        console.log("hit")
+        axios.post('/api/login', { username: this.state.username, password: this.state.password }).then(res => {
             this.props.updateUser(res.data)
             this.props.history.push('/dashboard')
             this.setState({
@@ -52,28 +43,52 @@ class Auth extends Component {
     }
 
 
+    handleRegister = () => {
+        axios.post('/api/register', { username: this.state.username, password: this.state.password }).then(res => {
+            this.props.updateUser(res.data)
+            this.props.history.push('/')
+            this.setState({
+                username: '',
+                password: ''
+            })
+        })
+            .then(alert('Account Created'))
+    }
+
+
 
     render() {
+        // console.log(this.handleLogin)
         return (
-            <div>
-                <div>
-                    Logo Here
+            <div className='auth-sizer'>
+                <div className='auth-body'>
+                    <div>
+                        <img src={HeloLogo} alt=''/>
                 </div>
-                <div>
-                    Helo
+                    <div className='helo'>
+                        Helo
                 </div>
-                <input
-                    value={this.state.username}
-                    name='username'
-                    onChange={(e) => this.handleInput(e)} />
-                <input
-                    value={this.state.password}
-                    type='password'
-                    name='password'
-                    onChange={(e) => this.handleInput(e)} />
-                <div>
-                    <button onClick={this.handleLogin}>Login</button>
-                    <button onClick={this.handleRegister}>Register</button>
+                    <div className='inputs'>
+                        <div>
+                            <div>UserName: </div>
+                            <div>Password: </div>
+                        </div>
+                        <div className='inputs-2'>
+                            <input
+                                value={this.state.username}
+                                name='username'
+                                onChange={(e) => this.handleInput(e)} />
+                            <input
+                                value={this.state.password}
+                                type='password'
+                                name='password'
+                                onChange={(e) => this.handleInput(e)} />
+                        </div>
+                    </div>
+                    <div>
+                        <button onClick={this.handleLogin} className='buttons-auth'>Login</button>
+                        <button onClick={this.handleRegister} className='buttons-auth'>Register</button>
+                    </div>
                 </div>
             </div>
         )

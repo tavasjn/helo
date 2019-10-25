@@ -1,13 +1,15 @@
 -- create table helo_users(
 --     helo_user_id serial primary key,
---     helo_user_username varchar(100),
---     helo_user_password varchar(250)
+--     username varchar(100),
+--     password varchar(250),
+--     profile_pic text
 -- );
 
 -- create table helo_posts(
 --     helo_posts_id serial primary key,
 --     helo_user_id int references helo_users(helo_user_id),
---     helo_posts_title varchar(250),
---     helo_posts_url text,
---     helo_posts_description text
+--     title varchar(250),
+--     url text,
+--     content text,
+--     author_id int references helo_users(helo_user_id)
 -- );

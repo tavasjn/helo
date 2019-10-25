@@ -2,8 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const massive = require('massive');
 const ctrl = require('./controller');
+const session = require('express-session');
 
-const {SERVER_PORT, CONNECTION_STRING} = process.env;
+const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env;
 
 const app = express();
 app.use(express.json());
@@ -15,12 +16,22 @@ massive(CONNECTION_STRING).then(db => {
 })
 
 // If we use Cookies we will write that here //
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: SESSION_SECRET,
+    cookie: {
+        maxAge: 1000 * 60 * 60
+    }
+}))
+
 
 // Endpoints //
-app.post('/auth/login', ctrl.login);
-app.post('/auth/register', ctrl.register);
-// app.post('/auth/logout', ctrl.logout);
-// app.post('/auth/user', ctrl.getUser);
+app.post('/api/login', ctrl.login);
+app.post('/api/register', ctrl.register);
+// app.get('/api/posts/:userid', ctrl.getPosts);
+// app.post('/api/post/:id', ctrl.post);
+// app.get('/api/post/:postid', ctrl.getPost);
 
 
 

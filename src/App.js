@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { HashRouter } from 'react-router-dom';
-// import { Provider } from 'react-redux';
-// import store from './ducks/store';
+import { Provider } from 'react-redux';
+import store from './ducks/store';
 
 
 
@@ -20,12 +20,13 @@ import Nav from './Components/Nav/Nav';
 
 function App() {
   return (
-    <HashRouter>
-      <div className="App">
-        <Nav />
-        {routes}
-      </div>
-    </HashRouter>
+    <Provider store={store}>
+      <HashRouter>
+        <div>
+          {routes}
+        </div>
+      </HashRouter>
+    </Provider>
   );
 }
 

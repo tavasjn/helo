@@ -1,6 +1,6 @@
 insert into helo_users(
-    helo_user_username,
-    helo_user_password
+    username,
+    password
 ) values (
     ${username},
     ${password}
