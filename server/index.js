@@ -29,6 +29,7 @@ app.use(session({
 // Endpoints //
 app.post('/api/login', ctrl.login);
 app.post('/api/register', ctrl.register);
+app.post('/api/logout', ctrl.logout);
 // app.get('/api/posts/:userid', ctrl.getPosts);
 // app.post('/api/post/:id', ctrl.post);
 // app.get('/api/post/:postid', ctrl.getPost);

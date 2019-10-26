@@ -48,4 +48,9 @@ module.exports = {
         newUser = newUser[0];
     },
 
+    logout: (req, res) => {
+        req.session.destroy()
+        res.sendStatus(200);
+    }
+
 }

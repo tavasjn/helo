@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import { updateUser } from '../../ducks/reducer';
-import HeloLogo from '../../helo_logo.png'
+import HeloLogo from '../../helo_logo.png';
+import {login} from '../../ducks/reducer';
 
 
 
@@ -38,6 +39,7 @@ class Auth extends Component {
                 username: '',
                 password: ''
             })
+            this.props.login()
         })
             .catch(err => console.log(err))
     }
@@ -51,6 +53,7 @@ class Auth extends Component {
                 username: '',
                 password: ''
             })
+            this.props.login()
         })
             .then(alert('Account Created'))
     }
@@ -103,7 +106,8 @@ const mapStateToProps = reduxState => {
 }
 
 const mapDispatchToProps = {
-    updateUser
+    updateUser,
+    login
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

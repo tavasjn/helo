@@ -4,11 +4,17 @@ import Dashboard from '../../home_logo.png';
 import New from '../../new_logo.png';
 import Logout from '../../shut_down.png';
 import {Link} from 'react-router-dom';
-import no_image from '../../no_image.jpg'
+import no_image from '../../no_image.jpg';
+import {logout} from '../../ducks/reducer';
+import {withRouter} from 'react-router-dom';
+
 
 
 class Nav extends Component {
     render(){
+        if(this.props.reduxState.user.signedIn === false){
+            this.props.history.push('/')
+        }
         console.log(this.props)
         return (
             <div className='nav-bar'>
@@ -26,7 +32,7 @@ class Nav extends Component {
                 </div>
                 <div className='logout'>
                     <div>
-                        <Link to='/'><img src={Logout} alt='' className='nav-img'/></Link>
+                        <button onClick={() => this.props.logout()}><img src={Logout} alt='' className='nav-img'/></button>
                     </div>
                 </div>
             </div>
@@ -34,4 +40,11 @@ class Nav extends Component {
     }
 }
 
-export default Nav;
+const mapStateToProps = (state) => {
+    return {
+        reduxState: state
+    }
+}
+
+
+export default withRouter(connect(mapStateToProps, {logout})(Nav));
